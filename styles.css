@@ -1,6 +1,5 @@
 body {
   width: 100vw;
-  height: min-content;
   margin: 0;
 }
 h2 {
@@ -24,7 +23,8 @@ p {
   flex-direction: column;
   align-items: center;
   left: 0;
-  top: 50px;
+  /* top: 50px;*/
+  position: absolute;
 }
 :root {
   --nav-height: 50px;
@@ -119,16 +119,47 @@ article > img {
   color: red;
 }
 
+.puzzles-and-games > div,
+.spotlight > div,
+.news-and-culture > div {
+  background-color: olive;
+}
+
 .news-and-culture,
 .puzzles-and-games,
 .big-articles,
-.spotlight {
+.spotlight,
+.full-width-banner {
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: -1;
   display: grid;
-
-  height: min-content;
 }
+
+.full-width-banner {
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+  height: max-content;
+  background-color: deepskyblue;
+}
+
+.full-width-banner-container {
+  grid-column: 1 / -1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-icon-container {
+  height: 3em;
+}
+
+.banner-icon-container > img {
+  height: 100%;
+}
+
 .news-and-culture > article,
 .puzzles-and-games > article,
 .spotlight > article {
@@ -146,6 +177,58 @@ article > img {
 .puzzles-and-games > article > img,
 .spotlight > article > img {
   grid-area: image;
+}
+
+.cartoon {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr min-content 1fr 1fr 1fr;
+}
+.cartoon > div {
+  grid-row: span 1;
+  grid-column: 1 / -1;
+}
+.comic-container {
+  max-width: 100%;
+  width: 100%;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.comic-container img {
+  max-width: 100%;
+}
+
+.title-flex-container > div:first-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.videos {
+  background-color: cornflowerblue;
+}
+
+.videos article {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.videos article > div:first-child {
+  width: 100%;
+  max-height: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  aspect-ratio: 16/9;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
 }
 
 footer {
@@ -205,13 +288,13 @@ footer {
   grid-row: 1/1;
 }
 
-.footer-social-links-container,
+.social-links-container,
 .footer-terms-container,
 .footer-cookies-link-container {
   grid-column: span 5;
 }
 
-.footer-social-links-container > ul,
+.social-links-container > ul,
 .footer-terms-container,
 .footer-cookies-link-container {
   display: flex;
@@ -231,7 +314,7 @@ footer {
   align-items: center;
 }
 
-.footer-social-links-container > ul > li {
+.social-links-container > ul > li {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -239,7 +322,7 @@ footer {
   height: 64px;
   width: 64px;
 }
-.footer-social-links-container > ul > li img {
+.social-links-container > ul > li img {
   max-height: 22px;
 }
 
@@ -247,6 +330,36 @@ footer {
   border: 1px solid black;
   padding: 10px;
   margin: 2em;
+}
+
+.contributors > article {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.contributors > article > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.contributors article img {
+  height: 44px;
+}
+
+.author-category {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 730px) {
+  .contributors {
+    grid-template-rows: min-content repeat(5, min-content);
+    grid-template-columns: 1fr 1fr;
+  }
+  .contributors > div:first-child {
+    grid-column: 1/-1;
+  }
 }
 
 @media screen and (min-width: 1030px) {
@@ -318,7 +431,7 @@ footer {
     height: 100%;
     width: 100%;
   }
-  .search-icon-container {
+  .icon-container {
     height: 32px;
     display: flex;
     flex-direction: row;
@@ -326,14 +439,14 @@ footer {
     align-items: center;
   }
 
-  .search-icon-container > a {
+  .icon-container > a {
     height: 100%;
     width: 100%;
     display: flex;
     place-items: center;
   }
 
-  .search-icon-container > a > img {
+  .icon-container img {
     height: 50%;
   }
 
@@ -350,18 +463,15 @@ footer {
   }
 
   .big-articles {
-    column-gap: 1rem;
-    grid-area: 1 / 1 / span 3 / span 9;
+    /*    grid-area: 1 / 1 / span 3 / span 9;*/
+    grid-column: 1/ 10;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: minmax(2.5rem, auto) 1fr;
-    row-gap: 1rem;
   }
 
   .news-and-culture {
     grid-column-start: 10;
     grid-column-end: 13;
-    grid-row-start: 1;
-    grid-row-end: 4;
   }
 
   .main-story {
@@ -419,16 +529,15 @@ footer {
   .puzzles-and-games {
     grid-column-start: 1;
     grid-column-end: 13;
-    grid-row-start: 4;
-    grid-row-end: 5;
+    /* grid-row-start: 4;
+    grid-row-end: 5; */
     grid-template-rows: repeat(2, min-content);
     grid-template-columns: repeat(12, 1fr);
     display: grid;
   }
   .puzzles-and-games > div,
   .spotlight > div {
-    grid-column: 1 / 13;
-    grid-row: 1 / 1;
+    grid-column: 1 / -1;
     background-color: olive;
   }
 
@@ -462,11 +571,55 @@ footer {
   .spotlight {
     grid-column-start: 1;
     grid-column-end: 13;
-    grid-row-start: 5;
-    grid-row-end: 6;
+    /* grid-row-start: 5;
+    grid-row-end: 6; */
     grid-template-columns: repeat(12, 1fr);
     display: grid;
     grid-auto-flow: row;
+  }
+
+  .contributors {
+  }
+
+  .contributors > article {
+    grid-column: span 6;
+  }
+  .contributors > div {
+    grid-column: 1/-1;
+  }
+
+  .contributors,
+  .cartoon {
+    grid-column: span 6;
+  }
+
+  .contributors > article {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .contributors > article > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .contributors article img {
+    height: 44px;
+  }
+
+  .author-category {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .videos > div:nth-of-type(2) {
+    grid-column: span 3;
+  }
+
+  .videos > article:nth-of-type(1) {
+    grid-column: 1/10;
+    background-color: brown;
   }
 
   .footer-grid-container {
@@ -539,7 +692,7 @@ footer {
     height: min-content;
   }
 
-  .footer-social-links-container > ul {
+  .social-links-container > ul {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -548,7 +701,7 @@ footer {
     justify-content: center;
   }
 
-  .footer-social-links-container > ul > li {
+  .social-links-container > ul > li {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -556,7 +709,7 @@ footer {
     height: 64px;
     width: 64px;
   }
-  .footer-social-links-container > ul > li img {
+  .social-links-container > ul > li img {
     max-height: 22px;
   }
 
